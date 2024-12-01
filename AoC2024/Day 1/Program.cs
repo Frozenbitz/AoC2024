@@ -8,7 +8,7 @@ class Program
         
         Console.WriteLine("AOC 2024 Day 1");
 
-        string filePath ="C:\\Users\\phell\\RiderProjects\\AoC2024\\AoC2024\\Inputs\\riddle.rmf";
+        string filePath ="C:\\Users\\phell\\RiderProjects\\AoC2024\\AoC2024\\Day 1\\Inputs\\riddle.rmf";
         if (! File.Exists(filePath))
         {
             Console.WriteLine("The file could not be found");
@@ -41,14 +41,14 @@ class Program
                 diff.Add(Math.Abs(leftList[i] - rightList[i])); 
             }
 
-            int sum = 0; 
-            foreach (var item in diff)
+            // here we need to get the similarity score 
+            int similarityScore = 0;
+            foreach (var candidate in leftList)
             {
-                sum += item;
+                similarityScore += candidate * rightList.Count(n => n == candidate);
             }
-            
-            Console.WriteLine("Calculated sum: " + sum);
-            
+            Console.WriteLine($"Similarity Score: {similarityScore}");   
+
         }
     }
     
