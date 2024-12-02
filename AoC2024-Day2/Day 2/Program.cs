@@ -8,7 +8,7 @@ class Program
         
         Console.WriteLine("AOC 2024 Day 1");
 
-        string filePath ="C:\\Users\\phell\\RiderProjects\\AoC2024\\AoC2024\\Day 1\\Inputs\\riddle.rmf";
+        string filePath ="C:\\Users\\phell\\RiderProjects\\AoC2024\\AoC2024-Day1\\Inputs\\sample.txt";
         if (! File.Exists(filePath))
         {
             Console.WriteLine("The file could not be found");
