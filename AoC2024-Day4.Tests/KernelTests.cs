@@ -113,5 +113,46 @@ public class KernelTests
             Assert.AreEqual(1, Program.SlidingWindowFilter(letterMap, 4));
         }
 
+        {
+            var testMatrix = new List<List<char>>
+            {
+                new List<char> { 'M', '.', 'S' },
+                new List<char> { '.', 'A', '.' },
+                new List<char> { 'M', '.', 'S' },
+            };
+            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+        }
+        
+        {
+            var testMatrix = new List<List<char>>
+            {
+                new List<char> { 'M', '.', 'M' },
+                new List<char> { '.', 'A', '.' },
+                new List<char> { 'S', '.', 'S' },
+            };
+            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+        }
+        
+        {
+            var testMatrix = new List<List<char>>
+            {
+                new List<char> { 'S', '.', 'M' },
+                new List<char> { '.', 'A', '.' },
+                new List<char> { 'S', '.', 'M' },
+            };
+            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+        }
+        
+        
+        {
+            var testMatrix = new List<List<char>>
+            {
+                new List<char> { 'S', '.', 'S' },
+                new List<char> { '.', 'A', '.' },
+                new List<char> { 'M', '.', 'M' },
+            };
+            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+        }
+
     } 
 }

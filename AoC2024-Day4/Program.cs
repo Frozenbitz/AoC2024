@@ -25,31 +25,31 @@ class Program
         // and then apply filtering kernel to get the rest.
             
         // step 1: get all horizontal kernels per line and find XMAS and SAMX
-        foreach (var lineOfChar in letterMap)
-        {
-            string line = "";
-            foreach (var character in lineOfChar)
-            {
-                line += character.ToString();
-            }
-            numberOfXmas += horizontalKernelFilter(line);
-        }
+        // foreach (var lineOfChar in letterMap)
+        // {
+        //     string line = "";
+        //     foreach (var character in lineOfChar)
+        //     {
+        //         line += character.ToString();
+        //     }
+        //     numberOfXmas += horizontalKernelFilter(line);
+        // }
         
         // for vertical lines we need to shift the input around and call the same filter for horizontal
-        List<List<char>> shiftedLetterMap = transposeCharMatrix(letterMap);
-        foreach (var lineOfChar in shiftedLetterMap)
-        {
-            string line = "";
-            foreach (var character in lineOfChar)
-            {
-                line += character.ToString();
-            }
-            numberOfXmas += horizontalKernelFilter(line);
-        }
+        // List<List<char>> shiftedLetterMap = transposeCharMatrix(letterMap);
+        // foreach (var lineOfChar in shiftedLetterMap)
+        // {
+        //     string line = "";
+        //     foreach (var character in lineOfChar)
+        //     {
+        //         line += character.ToString();
+        //     }
+        //     numberOfXmas += horizontalKernelFilter(line);
+        // }
         
         // step 2: build a 4x4 matrix to iterate and run the filter kernels over each possible 4x4 matrix
         // try to match each possible diagonal or reversed combination
-        numberOfXmas += SlidingWindowFilter(letterMap, 4);
+        numberOfXmas += SlidingWindowFilterMAS(letterMap);
 
         // collect and report all findings 
         Console.WriteLine("we found: " + numberOfXmas);
@@ -105,6 +105,53 @@ class Program
             (matrix[1][2] == 'M') &&
             (matrix[2][1] == 'A') &&
             (matrix[3][0] == 'S'))
+        {
+            numberOfXmas++;
+        }
+        
+        return numberOfXmas;
+    }
+    
+    public static int masKernelFilter(List<List<char>> matrix)
+    {
+        
+        if (matrix.Count != 3 || matrix.Exists(row => row.Count != 3))
+        {
+            throw new ArgumentException("The parameter must be a 3x3 matrix.");
+        }
+        
+        int numberOfXmas = 0;
+        if ((matrix[0][0] == 'M') &&
+            (matrix[1][1] == 'A') &&
+            (matrix[2][2] == 'S') &&
+            (matrix[2][0] == 'M') &&
+            (matrix[0][2] == 'S') )
+        {
+            numberOfXmas++;
+        }
+        if ((matrix[0][0] == 'M') &&
+            (matrix[1][1] == 'A') &&
+            (matrix[2][2] == 'S') &&
+            (matrix[0][2] == 'M') &&
+            (matrix[2][0] == 'S') )
+        {
+            numberOfXmas++;
+        }
+        
+        if ((matrix[0][2] == 'M') &&
+            (matrix[1][1] == 'A') &&
+            (matrix[2][0] == 'S') &&
+            (matrix[2][2] == 'M') &&
+            (matrix[0][0] == 'S') )
+        {
+            numberOfXmas++;
+        }
+        
+        if ((matrix[2][2] == 'M') &&
+            (matrix[1][1] == 'A') &&
+            (matrix[0][0] == 'S') &&
+            (matrix[2][0] == 'M') &&
+            (matrix[0][2] == 'S'))
         {
             numberOfXmas++;
         }
@@ -183,7 +230,7 @@ class Program
                 var window = new List<List<char>>();
                 for (int c = 0; c < windowSize; c++)
                 {
-                    window.Add(new List<char>(new char[4]));
+                    window.Add(new List<char>(new char[windowSize]));
                 }
                 
                 for (int wi = 0; wi < windowSize; wi++)
@@ -200,5 +247,38 @@ class Program
         
         return numberOfXmas;
     }
+    
+    public static int SlidingWindowFilterMAS(List<List<char>> matrix, int windowSize = 3)
+    {
+        // get the current dimensions
+        int rows = matrix.Count;
+        int cols = matrix[0].Count;
+        int numberOfXmas = 0;
 
+        for (int i = 0; i <= rows - windowSize; i++)
+        {
+            for (int j = 0; j <= cols - windowSize; j++)
+            {
+                
+                // create a new window 4x4
+                var window = new List<List<char>>();
+                for (int c = 0; c < windowSize; c++)
+                {
+                    window.Add(new List<char>(new char[windowSize]));
+                }
+                
+                for (int wi = 0; wi < windowSize; wi++)
+                {
+                    for (int wj = 0; wj < windowSize; wj++)
+                    {
+                        window[wi][wj] = matrix[i + wi][j + wj];
+                    }
+                }
+                
+                numberOfXmas += masKernelFilter(window);
+            }
+        }
+        
+        return numberOfXmas;
+    }
 }
