@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AoC2024_Day4.Tests;
 
 [TestClass]
-[TestSubject(typeof(Program))]
+[TestSubject(typeof(AoC2024Day4))]
 public class KernelTests
 {
 
@@ -18,17 +18,17 @@ public class KernelTests
         // test some basic and overlapping horizontal kernels
         {
             string kernelToTest1 = ".SAMXMS...";
-            Assert.AreEqual(1, Program.horizontalKernelFilter(kernelToTest1));
+            Assert.AreEqual(1, AoC2024Day4.horizontalKernelFilter(kernelToTest1));
         }
 
         {
             string kernelToTest2 = ".SAMXMAS...";
-            Assert.AreEqual(2, Program.horizontalKernelFilter(kernelToTest2));
+            Assert.AreEqual(2, AoC2024Day4.horizontalKernelFilter(kernelToTest2));
         }
 
         {
             string kernelToTest3 = ".SAMXMASAMX...";
-            Assert.AreEqual(3, Program.horizontalKernelFilter(kernelToTest3));
+            Assert.AreEqual(3, AoC2024Day4.horizontalKernelFilter(kernelToTest3));
         }
 
         {
@@ -40,7 +40,7 @@ public class KernelTests
                 new List<char> { 'm', 'n', 'o', 'p' }
             };
             string localMatrix = "C:\\Users\\phell\\RiderProjects\\AoC2024\\AoC2024-Day4\\Inputs\\testingMatrix.txt";
-            List<List<char>> matrix = Program.generateCharMatrix(localMatrix);
+            List<List<char>> matrix = AoC2024Day4.generateCharMatrix(localMatrix);
 
             foreach (var (line, lineIndex) in validMatrix.Select((item, index) => (item, index)))
             {
@@ -61,8 +61,8 @@ public class KernelTests
                 new List<char> { 'd', 'h', 'l', 'p' }
             };
             string localMatrix = "C:\\Users\\phell\\RiderProjects\\AoC2024\\AoC2024-Day4\\Inputs\\testingMatrix.txt";
-            List<List<char>> matrix = Program.generateCharMatrix(localMatrix);
-            matrix = Program.transposeCharMatrix(matrix);
+            List<List<char>> matrix = AoC2024Day4.generateCharMatrix(localMatrix);
+            matrix = AoC2024Day4.transposeCharMatrix(matrix);
 
             foreach (var (line, lineIndex) in validMatrix.Select((item, index) => (item, index)))
             {
@@ -82,7 +82,7 @@ public class KernelTests
                 new List<char> { '.', '.', 'A', '.' },
                 new List<char> { '.', '.', '.', 'S' }
             };
-            Assert.AreEqual(1, Program.boxKernelFilter(testMatrix));    
+            Assert.AreEqual(1, AoC2024Day4.boxKernelFilter(testMatrix));    
         }
         
         {
@@ -93,7 +93,7 @@ public class KernelTests
                 new List<char> { '.', 'M', '.', '.' },
                 new List<char> { 'X', '.', '.', '.' }
             };
-            Assert.AreEqual(1, Program.boxKernelFilter(testMatrix));    
+            Assert.AreEqual(1, AoC2024Day4.boxKernelFilter(testMatrix));    
         }
         
         {
@@ -104,13 +104,13 @@ public class KernelTests
                 new List<char> { '.', 'A', 'M', '.' },
                 new List<char> { 'S', '.', '.', 'X' }
             };
-            Assert.AreEqual(2, Program.boxKernelFilter(testMatrix));    
+            Assert.AreEqual(2, AoC2024Day4.boxKernelFilter(testMatrix));    
         }
 
         {
             string filePath ="C:\\Users\\phell\\RiderProjects\\AoC2024\\AoC2024-Day4\\Inputs\\testSample.txt";
-            List<List<char>> letterMap = Program.generateCharMatrix(filePath);
-            Assert.AreEqual(1, Program.SlidingWindowFilter(letterMap, 4));
+            List<List<char>> letterMap = AoC2024Day4.generateCharMatrix(filePath);
+            Assert.AreEqual(1, AoC2024Day4.SlidingWindowFilter(letterMap, 4));
         }
 
         {
@@ -120,7 +120,7 @@ public class KernelTests
                 new List<char> { '.', 'A', '.' },
                 new List<char> { 'M', '.', 'S' },
             };
-            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+            Assert.AreEqual(1, AoC2024Day4.masKernelFilter(testMatrix));    
         }
         
         {
@@ -130,7 +130,7 @@ public class KernelTests
                 new List<char> { '.', 'A', '.' },
                 new List<char> { 'S', '.', 'S' },
             };
-            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+            Assert.AreEqual(1, AoC2024Day4.masKernelFilter(testMatrix));    
         }
         
         {
@@ -140,7 +140,7 @@ public class KernelTests
                 new List<char> { '.', 'A', '.' },
                 new List<char> { 'S', '.', 'M' },
             };
-            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+            Assert.AreEqual(1, AoC2024Day4.masKernelFilter(testMatrix));    
         }
         
         
@@ -151,8 +151,8 @@ public class KernelTests
                 new List<char> { '.', 'A', '.' },
                 new List<char> { 'M', '.', 'M' },
             };
-            Assert.AreEqual(1, Program.masKernelFilter(testMatrix));    
+            Assert.AreEqual(1, AoC2024Day4.masKernelFilter(testMatrix));    
         }
 
-    } 
+    }
 }

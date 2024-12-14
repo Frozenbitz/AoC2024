@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 
-class Program
+class AoC2024Day4
 {
     static void Main()
     {
